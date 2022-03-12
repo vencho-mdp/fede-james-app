@@ -1,0 +1,64 @@
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-Normal.otf') format('opentype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-Normal.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-Normal.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-Bold.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-Medium.otf') format('opentype');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-BoldOblique.otf') format('opentype');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-NormalOblique.otf') format('opentype');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-NormalOblique.otf') format('opentype');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Audrey';
+    src: url('/fonts/Audrey-MediumOblique.otf') format('opentype');
+    font-weight: 500;
+    font-style: italic;
+}
