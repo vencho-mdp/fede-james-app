@@ -7,7 +7,7 @@ export default function Services({ items }) {
   const router = useRouter();
   return (
     <>
-      <Subtitle text="Servicios" className="mt-12 mb-8" />
+      <Subtitle text="Servicios" className="mt-24 mb-8" />
       <div className="flex flex-wrap justify-around items-center">
         {items.map((item) => (
           <div
@@ -16,7 +16,7 @@ export default function Services({ items }) {
           >
             <Image
               alt={item.name}
-              className="rounded-sm flex-grow"
+              className="rounded-md flex-grow"
               src={item.src}
               width="220"
               height="170"

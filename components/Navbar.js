@@ -23,6 +23,10 @@ export default function Navbar() {
     ...el,
     isActive: router.pathname === el.route,
   }));
+  const onChange = (e) => {
+    const { value } = e.target;
+    router.push(`/servicios/${value.toLowerCase()}`);
+  };
   return (
     <div className="flex justify-center items-center">
       <div className="w-96">
@@ -42,8 +46,10 @@ export default function Navbar() {
             <NavbarItem key={el.text} {...el} />
           ))}
           <Dropdown
-            name="Servicios"
-            options={["Afilado", "Restauración", "Revitalización"]}
+            name={router.asPath.split("/")[2] || "Servicios"}
+            onChange={onChange}
+            options={["Afilado", "Restauracion", "Revitalizacion"]}
+            className="truncate "
             isActive={router.pathname.includes("/servicios")}
           />
         </nav>

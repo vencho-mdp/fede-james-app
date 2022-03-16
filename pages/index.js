@@ -15,8 +15,8 @@ export default function Home() {
       <Slider
         imagesPath={[
           { src: "/images/main_knife.jpg" },
-          { src: "/images/main_knife.jpg" },
-          { src: "/images/main_knife.jpg" },
+          { src: "/images/main_knife2.jpg" },
+          { src: "/images/main_knife3.jpg" },
         ]}
         title="Últimas Piezas"
       />
@@ -28,14 +28,14 @@ export default function Home() {
             route: "/servicios/afilacion",
           },
           {
-            name: "Afilación",
-            src: "/images/main_knife.jpg",
-            route: "/servicios/afilacion",
+            name: "Restauración",
+            src: "/images/main_knife2.jpg",
+            route: "/servicios/restauracion",
           },
           {
-            name: "Afilación",
-            src: "/images/main_knife.jpg",
-            route: "/servicios/afilacion",
+            name: "Revitalización",
+            src: "/images/main_knife3.jpg",
+            route: "/servicios/revitalizacion",
           },
         ]}
       />

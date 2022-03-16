@@ -27,13 +27,13 @@ export default async function handler(req, res) {
   
   Mensaje: ${req.body.message},
 
-  Link / Email para Contactarlo: ${link}
+  ${
+    req.body.socialMedia === "email " ? "Email" : "Link"
+  } para Contactarlo: ${link}
   `;
   await thread.broadcastText(message);
 
   res.status(200).send({
     message: "Mensaje enviado correctamente",
   });
-
-  // the rest of your code
 }

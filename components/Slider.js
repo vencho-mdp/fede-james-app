@@ -1,9 +1,14 @@
 import Image from "next/dist/client/image";
 import Subtitle from "./Subtitle";
 import { createRef, useState } from "react";
-import Paragraph from "./Paragraph";
 
-export default function Slider({ imagesPath, title, className }) {
+export default function Slider({
+  imagesPath,
+  title,
+  className,
+  onImageChange = () => {},
+  sliderWidth = "w-11/12",
+}) {
   const [currentImage, setCurrentImage] = useState(0);
 
   const refs = imagesPath.reduce((acc, val, i) => {
@@ -13,6 +18,7 @@ export default function Slider({ imagesPath, title, className }) {
 
   const scrollToImage = (i) => {
     setCurrentImage(i);
+    onImageChange(i);
     refs[i].current.scrollIntoView({
       behavior: "smooth",
       block: "nearest",
@@ -56,33 +62,37 @@ export default function Slider({ imagesPath, title, className }) {
 
   return (
     <div className={className || ""}>
-      <Subtitle text={title} className="mt-12 mb-8" />
-      <div className="relative w-full md:w-2/3 mx-auto flex justify-around">
+      {title && <Subtitle text={title} className="mt-12 mb-12" />}
+      <div className="flex items-center justify-center">
         <div
-          className="flex justify-center w-screen md:w-1/2 items-center"
-          style={{
-            display: "inline-flex",
-            overflowX: "hidden",
-            scrollSnapType: "x mandatory",
-            WebkitOverflowScrolling: "touch",
-            scrollbarWidth: "none",
-            MsOverflowStyle: "none",
-          }}
+          className={
+            "relative max-w-md flex items-center justify-center" +
+            ` ${sliderWidth}`
+          }
         >
-          {sliderControl(true)}
-          {imagesPath.map((img, i) => (
-            <div
-              className="w-full flex mx-12 justify-center items-center flex-shrink-0"
-              key={img.src}
-              ref={refs[i]}
-            >
-              <div className="flex flex-col items-center justify-center max-w-max">
+          <div
+            style={{
+              display: "inline-flex",
+              overflowX: "hidden",
+              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
+              scrollbarWidth: "none",
+              MsOverflowStyle: "none",
+            }}
+          >
+            {sliderControl(true)}
+            {imagesPath.map((img, i) => (
+              <div
+                className="w-full flex-shrink-0 grid place-items-center"
+                key={img.src}
+                ref={refs[i]}
+              >
                 <Image
                   src={img.src}
                   height="170"
                   width="220"
                   alt="Imagen"
-                  className="rounded-sm"
+                  className="w-full object-cover"
                 />
                 {img.label && (
                   <p className="text-white font-medium text-lg mt-4">
@@ -91,9 +101,9 @@ export default function Slider({ imagesPath, title, className }) {
                   </p>
                 )}
               </div>
-            </div>
-          ))}
-          {sliderControl()}
+            ))}
+            {sliderControl()}
+          </div>
         </div>
       </div>
     </div>
