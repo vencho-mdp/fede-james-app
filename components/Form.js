@@ -1,7 +1,7 @@
 import Subtitle from "./Subtitle";
-import Dropdown from "./Dropdown";
 import PrimaryButton from "./PrimaryButton";
 import { useState, useMemo } from "react";
+import { event } from "../lib/ga.js";
 
 export default function Form({ className }) {
   const otherWaysToGetInTouch = [
@@ -26,11 +26,8 @@ export default function Form({ className }) {
       link: "https://www.youtube.com/channel/UC-ObH-6trQPabbEkKK0ZYTw",
     },
   ];
-  const [socialMedia, setSocialMedia] = useState("Instagram");
 
   const [name, setName] = useState("");
-
-  const [user, setUser] = useState("");
 
   const [message, setMessage] = useState("");
 
@@ -38,41 +35,61 @@ export default function Form({ className }) {
 
   const [loading, setLoading] = useState(false);
 
-  const userOrPhone = useMemo(() => {
-    setUser("");
-    return socialMedia === "Whatsapp"
-      ? "Teléfono"
-      : socialMedia === "Email"
-      ? "Email"
-      : "Usuario";
-  }, [socialMedia]);
+  const [contactMethod, setContactMethod] = useState("phone");
+
+  const [user, setUser] = useState("");
 
   const isValid = useMemo(() => {
-    return name && user && message;
-  }, [name, user, message]);
+    return (
+      name &&
+      contactMethod &&
+      (contactMethod === "email"
+        ? /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(user)
+        : user.length > 7) &&
+      message
+    );
+  }, [name, contactMethod, user, message]);
 
   const checkThatIsValid = (object) => {
-    if (socialMedia !== "Whatsapp") return;
-    if (object.target.value.length > 10) {
-      object.target.value = object.target.value.slice(0, 10);
-    }
+    if (contactMethod !== "phone") return;
+    // format phone number
+    const arr = object.target.value
+      .replace(/\D/g, "")
+      .match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
+      .slice(1);
+
+    setUser(
+      `${arr[0] ? `(${arr[0]}) ` : ""}${arr[1] ? `${arr[1]}` : ""}${
+        arr[2] ? `-${arr[2]}` : ""
+      }`
+    );
   };
 
   const sendMessage = async (e) => {
     e.preventDefault();
     setLoading(true);
+    event({
+      action: "contact_form",
+      params: {
+        contactMethod: contactMethod.toLowerCase(),
+        name,
+        user: contactMethod !== "email" ? user.replace(/\D/g, "") : user,
+        message,
+      },
+    });
     await fetch("/api/message", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        socialMedia: socialMedia.toLowerCase(),
+        contactMethod: contactMethod.toLowerCase(),
         name,
-        user,
+        user: contactMethod !== "email" ? user.replace(/\D/g, "") : user,
         message,
       }),
     });
+
     setLoading(false);
     setHasFormBeenSubmitted(true);
   };
@@ -80,12 +97,12 @@ export default function Form({ className }) {
   return (
     <>
       {loading ? (
-        <div className="border border-gray-200 p-2 mx-8">
+        <div className="border border-gray-200 p-2 mx-8 rounded-md">
           <Subtitle
-            className="!text-2xl text-gray-400 mb-4"
+            className="!text-2xl text-gray-400 mb-4 mt-6"
             text="Enviando..."
           />
-          <div className="spinner mx-auto"></div>
+          <div className="spinner my-8 mx-auto"></div>
         </div>
       ) : !hasFormBeenSubmitted ? (
         <form
@@ -103,39 +120,6 @@ export default function Form({ className }) {
                 className="p-1 rounded-md text-gray-200 bg-black border border-gray-200 focus:outline-none"
               />
             </div>
-            <div className="flex justify-between items-center">
-              <div className="flex-col justify-between items-start pr-2">
-                <label className="text-gray-200 font-medium">Red Social</label>
-                <Dropdown
-                  onChange={(event) => setSocialMedia(event.target.value)}
-                  padding={false}
-                  className="border p-1 border-white rounded-md min-w-min"
-                  options={["Instagram", "Email", "Whatsapp"]}
-                />
-              </div>
-              <div className="flex-col w-full justify-between items-start">
-                <label className="text-gray-200 font-medium">
-                  {userOrPhone}
-                </label>
-                <input
-                  type={
-                    socialMedia === "Whatsapp"
-                      ? "number"
-                      : socialMedia === "Email"
-                      ? "email"
-                      : "text"
-                  }
-                  value={user}
-                  onChange={(e) => setUser(e.target.value)}
-                  onInput={checkThatIsValid}
-                  className="rounded-md w-full pl-0.5 pr-1 py-1 text-gray-200 bg-black border border-gray-200 focus:outline-none"
-                />
-              </div>
-            </div>
-            <p className="text-gray-200 font-light text-base mt-2 mb-12">
-              Pedimos tu {userOrPhone.toLowerCase()} para que recibas la
-              respuesta a tu consulta por ahí.
-            </p>
             <div className="flex flex-col mb-12">
               <label className="text-gray-200 font-medium">Mensaje</label>
               <textarea
@@ -143,6 +127,58 @@ export default function Form({ className }) {
                 onChange={(e) => setMessage(e.target.value)}
                 className="p-1 rounded-md text-gray-200 bg-black border border-gray-200 focus:outline-none"
               />
+            </div>
+            <div className="flex flex-col mb-12">
+              <Subtitle
+                className="!text-lg !text-left"
+                text="¿Por donde querés que te contactemos?"
+              />
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  name="contact-method"
+                  id="phone"
+                  className="my-4"
+                  value="phone"
+                  defaultChecked
+                  onChange={(e) => {
+                    setContactMethod(e.target.value);
+                    setUser("");
+                  }}
+                />
+                <label htmlFor="phone" className=" ml-2 text-gray-200">
+                  Teléfono
+                </label>
+              </div>
+              <div className="flex items-center">
+                <input
+                  type="radio"
+                  value="email"
+                  name="contact-method"
+                  onChange={(e) => {
+                    setContactMethod(e.target.value);
+                    setUser("");
+                  }}
+                  id="email"
+                />
+                <label htmlFor="email" className=" ml-2 text-gray-200">
+                  Email
+                </label>
+              </div>
+              <div className="flex flex-col mt-6">
+                <label className="text-gray-200 font-medium">
+                  {contactMethod === "phone" ? "Teléfono" : "Email"}
+                </label>
+                <input
+                  type={contactMethod === "email" ? "email" : "tel"}
+                  value={user}
+                  onChange={(e) => {
+                    setUser(e.target.value);
+                    checkThatIsValid(e);
+                  }}
+                  className="p-1 rounded-md text-gray-200 bg-black border border-gray-200 focus:outline-none"
+                />
+              </div>
             </div>
             <PrimaryButton disabled={!isValid} text="Enviar" />
           </div>
@@ -166,6 +202,14 @@ export default function Form({ className }) {
             rel="noopener noreferrer"
             className="mx-4"
             key={socialMedia.name}
+            onClick={() =>
+              event({
+                action: "share",
+                params: {
+                  value: socialMedia.name,
+                },
+              })
+            }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img

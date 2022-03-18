@@ -92,7 +92,7 @@ export default function Slider({
                   height="170"
                   width="220"
                   alt="Imagen"
-                  className="w-full object-cover"
+                  className="w-full object-cover rounded-md"
                 />
                 {img.label && (
                   <p className="text-white font-medium text-lg mt-4">

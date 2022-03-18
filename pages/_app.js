@@ -2,8 +2,29 @@ import Navbar from "../components/Navbar";
 import Head from "next/head";
 import "../styles/globals.css";
 import NextNProgress from "nextjs-progressbar";
+import { useEffect } from "react";
+import { useRouter } from "next/router";
+import * as ga from "../lib/ga.js";
+import Script from "next/script";
 
 function MyApp({ Component, pageProps }) {
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url) => {
+      ga.pageview(url);
+    };
+    //When the component is mounted, subscribe to router changes
+    //and log those page views
+    router.events.on("routeChangeComplete", handleRouteChange);
+
+    // If the component is unmounted, unsubscribe
+    // from the event with the `off` method
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
+
   return (
     <>
       <Head>
@@ -12,7 +33,7 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" sizes="64x64" href="/images/logo.png" />
       </Head>
       <NextNProgress
-        color="#29D"
+        color="#1e3a8a"
         startPosition={0.3}
         stopDelayMs={200}
         height={3}
@@ -21,6 +42,18 @@ function MyApp({ Component, pageProps }) {
       />
       <Navbar />
       <Component {...pageProps} />
+      <Script
+        src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+        strategy="afterInteractive"
+      />
+      <Script id="google-analytics" strategy="afterInteractive">
+        {`
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){window.dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
+        `}
+      </Script>
     </>
   );
 }
