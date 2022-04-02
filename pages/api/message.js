@@ -17,7 +17,7 @@ const sendMessages = async () => {
   const ig = new IgApiClient();
   ig.state.generateDevice(process.env.IG_USERNAME);
   await ig.account.login(process.env.IG_USERNAME, process.env.IG_PASSWORD);
-  const userId = await ig.user.getIdByUsername("jp_guerrero07");
+  const userId = await ig.user.getIdByUsername("federico.james.platero");
   const thread = ig.entity.directThread([userId.toString()]);
   if (message.length > 1000) {
     const chunks = chunk(message, 1000);
