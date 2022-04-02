@@ -2,6 +2,7 @@ import Subtitle from "./Subtitle";
 import PrimaryButton from "./PrimaryButton";
 import { useState, useMemo } from "react";
 import { event } from "../lib/ga.js";
+import Fade from "./Fade";
 
 export default function Form({ className }) {
   const otherWaysToGetInTouch = [
@@ -95,7 +96,7 @@ export default function Form({ className }) {
   };
 
   return (
-    <>
+    <Fade>
       {loading ? (
         <div className="border border-gray-200 p-2 mx-8 rounded-md">
           <Subtitle
@@ -180,7 +181,11 @@ export default function Form({ className }) {
                 />
               </div>
             </div>
-            <PrimaryButton disabled={!isValid} text="Enviar" />
+            <PrimaryButton
+              className="self-start"
+              disabled={!isValid}
+              text="Enviar"
+            />
           </div>
         </form>
       ) : (
@@ -220,6 +225,6 @@ export default function Form({ className }) {
           </a>
         ))}
       </div>
-    </>
+    </Fade>
   );
 }

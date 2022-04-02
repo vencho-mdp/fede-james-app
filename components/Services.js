@@ -2,11 +2,12 @@ import Subtitle from "./Subtitle";
 import Image from "next/image";
 import OutlineButton from "./OutlineButton";
 import { useRouter } from "next/router";
+import Fade from "./Fade";
 
 export default function Services({ items }) {
   const router = useRouter();
   return (
-    <>
+    <Fade>
       <Subtitle text="Servicios" className="mt-24 mb-8" />
       <div className="flex flex-wrap justify-around items-center">
         {items.map((item) => (
@@ -29,6 +30,6 @@ export default function Services({ items }) {
           </div>
         ))}
       </div>
-    </>
+    </Fade>
   );
 }

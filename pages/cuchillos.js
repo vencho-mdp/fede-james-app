@@ -7,6 +7,7 @@ import OutlineButton from "../components/OutlineButton";
 import { useState, useEffect } from "react";
 import Paragraph from "../components/Paragraph";
 import Image from "next/image";
+import Fade from "../components/Fade";
 
 export default function Cuchillos({ knives }) {
   const [imgIndex, setImgIndex] = useState(0);
@@ -77,26 +78,29 @@ export default function Cuchillos({ knives }) {
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
       />
       <Subtitle text="Últimos Trabajos" className="mt-16 mb-8" />
-      {(loadAll ? items : knives).map((imgSrc) => (
-        <div key={imgSrc} className="py-8 px-16 h-96 w-full">
-          {/* eslint-disable-next-line @next/next/no-img-element */}
-          <img
-            src={`data:image/jpeg;base64,${imgSrc}`}
-            alt="knife"
-            className="h-full w-full object-cover rounded-md"
-          />
-        </div>
-      ))}
+      <Fade>
+        {(loadAll ? items : knives).map((imgSrc) => (
+          <div key={imgSrc} className="py-8 px-16 h-96 w-full">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src={`data:image/jpeg;base64,${imgSrc}`}
+              alt="knife"
+              className="h-full w-full object-cover rounded-md"
+            />
+          </div>
+        ))}
 
-      {!loadAll && (
-        <div className="w-full flex items-center justify-center">
-          <OutlineButton
-            onClick={() => setLoadAll(true)}
-            className="mt-4 mb-8 mx-auto"
-            text="Cargar más"
-          />
-        </div>
-      )}
+        {!loadAll && (
+          <div className="w-full flex items-center justify-center">
+            <OutlineButton
+              onClick={() => setLoadAll(true)}
+              className="mt-4 mb-8 mx-auto"
+              text="Cargar más"
+            />
+          </div>
+        )}
+      </Fade>
+
       <Slider
         title="Categorías"
         imagesPath={imgs.map((el) => ({ src: el.src }))}

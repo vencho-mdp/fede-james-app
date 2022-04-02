@@ -1,6 +1,7 @@
 import Image from "next/dist/client/image";
 import Subtitle from "./Subtitle";
 import { createRef, useState } from "react";
+import Fade from "./Fade";
 
 export default function Slider({
   imagesPath,
@@ -61,51 +62,54 @@ export default function Slider({
   );
 
   return (
-    <div className={className || ""}>
-      {title && <Subtitle text={title} className="mt-12 mb-12" />}
-      <div className="flex items-center justify-center">
-        <div
-          className={
-            "relative max-w-md flex items-center justify-center" +
-            ` ${sliderWidth}`
-          }
-        >
+    <Fade>
+      {" "}
+      <div className={className || ""}>
+        {title && <Subtitle text={title} className="mt-12 mb-12" />}
+        <div className="flex items-center justify-center">
           <div
-            style={{
-              display: "inline-flex",
-              overflowX: "hidden",
-              scrollSnapType: "x mandatory",
-              WebkitOverflowScrolling: "touch",
-              scrollbarWidth: "none",
-              MsOverflowStyle: "none",
-            }}
+            className={
+              "relative max-w-md flex items-center justify-center" +
+              ` ${sliderWidth}`
+            }
           >
-            {sliderControl(true)}
-            {imagesPath.map((img, i) => (
-              <div
-                className="w-full flex-shrink-0 grid place-items-center"
-                key={img.src}
-                ref={refs[i]}
-              >
-                <Image
-                  src={img.src}
-                  height="170"
-                  width="220"
-                  alt="Imagen"
-                  className="w-full object-cover rounded-md"
-                />
-                {img.label && (
-                  <p className="text-white font-medium text-lg mt-4">
-                    {" "}
-                    {img.label}{" "}
-                  </p>
-                )}
-              </div>
-            ))}
-            {sliderControl()}
+            <div
+              style={{
+                display: "inline-flex",
+                overflowX: "hidden",
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+                scrollbarWidth: "none",
+                MsOverflowStyle: "none",
+              }}
+            >
+              {sliderControl(true)}
+              {imagesPath.map((img, i) => (
+                <div
+                  className="w-full flex-shrink-0 grid place-items-center"
+                  key={img.src}
+                  ref={refs[i]}
+                >
+                  <Image
+                    src={img.src}
+                    height="170"
+                    width="220"
+                    alt="Imagen"
+                    className="w-full object-cover rounded-md"
+                  />
+                  {img.label && (
+                    <p className="text-white font-medium text-lg mt-4">
+                      {" "}
+                      {img.label}{" "}
+                    </p>
+                  )}
+                </div>
+              ))}
+              {sliderControl()}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Fade>
   );
 }
