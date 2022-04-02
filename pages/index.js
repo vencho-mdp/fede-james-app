@@ -10,13 +10,13 @@ export default function Home() {
       <Hero
         subtitle="Federico James"
         title="Arte en la Orfebrería"
-        img="/images/main_knife.jpg"
+        img="/images/knives/main_knife.jpg"
       ></Hero>
       <Slider
         imagesPath={[
-          { src: "/images/main_knife.jpg" },
-          { src: "/images/main_knife2.jpg" },
-          { src: "/images/main_knife3.jpg" },
+          { src: "/images/knives/IMG_1635_photo.jpg" },
+          { src: "/images/knives/IMG_1023_photo.jpg" },
+          { src: "/images/knives/IMG_3143_photo.jpg" },
         ]}
         title="Últimas Piezas"
       />
@@ -24,17 +24,17 @@ export default function Home() {
         items={[
           {
             name: "Afilación",
-            src: "/images/main_knife.jpg",
+            src: "/images/knives/IMG_3146_photo.jpg",
             route: "/servicios/afilacion",
           },
           {
             name: "Restauración",
-            src: "/images/main_knife2.jpg",
+            src: "/images/knives/IMG_3603_photo.jpg",
             route: "/servicios/restauracion",
           },
           {
             name: "Revitalización",
-            src: "/images/main_knife3.jpg",
+            src: "/images/knives/IMG_6559_photo.jpg",
             route: "/servicios/revitalizacion",
           },
         ]}

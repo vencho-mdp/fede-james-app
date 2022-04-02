@@ -17,10 +17,10 @@ export default function Services({ items }) {
           >
             <Image
               alt={item.name}
-              className="rounded-md flex-grow"
+              className="rounded-md object-cover flex-grow"
               src={item.src}
-              width="220"
-              height="170"
+              width="180"
+              height="240"
             />
             <OutlineButton
               text={item.name}

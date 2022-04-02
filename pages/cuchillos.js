@@ -8,8 +8,10 @@ import { useState, useEffect } from "react";
 import Paragraph from "../components/Paragraph";
 import Image from "next/image";
 import Fade from "../components/Fade";
+import { CSSTransition } from "react-transition-group";
+import useFetchPosts from "../hooks/useFetchPosts";
 
-export default function Cuchillos({ knives }) {
+export default function Cuchillos({ knives = [] }) {
   const [imgIndex, setImgIndex] = useState(0);
   const [showProductSpecificCard, setShowProductSpecificCard] = useState(false);
   const [items, setItems] = useState([]);
@@ -36,12 +38,12 @@ export default function Cuchillos({ knives }) {
 
   const imgs = [
     {
-      src: "/images/main_knife.jpg",
+      src: "/images/knives/main_knife.jpg",
       label: "Cuchillo Mariposa",
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/main_knife.jpg" },
+        { src: "/images/knives/main_knife.jpg" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -52,7 +54,7 @@ export default function Cuchillos({ knives }) {
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/main_knife.jpg" },
+        { src: "/images/knives/main_knife.jpg" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -63,7 +65,7 @@ export default function Cuchillos({ knives }) {
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/main_knife.jpg" },
+        { src: "/images/knives/main_knife.jpg" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -72,7 +74,7 @@ export default function Cuchillos({ knives }) {
 
   return (
     <main>
-      <Hero title="Cuchillos" img="/images/main_knife.jpg" />
+      <Hero title="Cuchillos" img="/images/knives/IMG_20220226_113510.jpg" />
       <Paragraph
         className="mx-12 mt-16"
         text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat."
@@ -100,14 +102,13 @@ export default function Cuchillos({ knives }) {
           </div>
         )}
       </Fade>
-
       <Slider
         title="Categorías"
         imagesPath={imgs.map((el) => ({ src: el.src }))}
         onImageChange={(i) => setImgIndex(i)}
         className="mt-12"
       />
-      {!showProductSpecificCard ? (
+      {!showProductSpecificCard && (
         <div className="flex w-full items-center justify-center">
           <OutlineButton
             onClick={() => setShowProductSpecificCard(true)}
@@ -115,8 +116,14 @@ export default function Cuchillos({ knives }) {
             text={`Ver más del ${imgs[imgIndex].label}`}
           />
         </div>
-      ) : (
-        <div className="border-2 border-gray-200 p-1 mx-4 my-12 flex flex-col items-center justify-around rounded-md">
+      )}
+      <CSSTransition
+        classNames="knife-transition"
+        unmountOnExit
+        in={showProductSpecificCard}
+        timeout={300}
+      >
+        <div className="border-2 border-gray-200 p-1 mx-4 my-16 flex flex-col items-center justify-around rounded-md">
           <div className="w-full flex items-center justify-end px-2 pt-2">
             <Image
               alt="Cerrar"
@@ -135,8 +142,7 @@ export default function Cuchillos({ knives }) {
             />
           </div>
         </div>
-      )}
-
+      </CSSTransition>
       <Form />
       <Footer />
     </main>
@@ -144,12 +150,13 @@ export default function Cuchillos({ knives }) {
 }
 
 export async function getStaticProps() {
-  const { items } = await fetch(process.env.BASE_URL + "/api/photos?limit=2", {
-    method: "GET",
-    headers: {
-      "Content-Type": "application/json",
+  // mock req, and res
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  const items = await useFetchPosts({
+    query: {
+      limit: 2,
     },
-  }).then((res) => res.json());
+  });
 
   return {
     props: {

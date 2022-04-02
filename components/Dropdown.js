@@ -7,12 +7,12 @@ export default function Dropdown({
   padding = true,
 }) {
   const classNames =
-    "flex items-center" + (padding ? " p-2 mb-1" : "") + isActive
-      ? " flex flex-col justify-center items-start"
-      : null;
+    "flex" +
+    (padding ? " p-2 mb-1" : "") +
+    (isActive ? " flex flex-col justify-center items-start" : " items-center");
 
   const selectClassNames =
-    className + " bg-black text-gray-200 focus:outline-none w-24";
+    className + " bg-black text-gray-200 focus:outline-none";
   return (
     <div className={classNames}>
       <select className={selectClassNames} onChange={onChange} value={name}>

@@ -132,7 +132,7 @@ export default function Form({ className }) {
             <div className="flex flex-col mb-12">
               <Subtitle
                 className="!text-lg !text-left"
-                text="¿Por donde querés que te contactemos?"
+                text="¿Por donde querés que te contacte?"
               />
               <div className="flex items-center">
                 <input

@@ -2,7 +2,7 @@ import { Transition } from "react-transition-group";
 import { useState, createRef, useMemo } from "react";
 import useOnScreen from "../hooks/useOnScreen";
 
-const duration = 120;
+const duration = 300;
 
 const defaultStyle = {
   transition: `opacity ${duration}ms ease-in-out`,
@@ -25,8 +25,6 @@ export default function Fade(props) {
       setTimeout(() => {
         setInProp(true);
       }, duration);
-    } else {
-      setInProp(false);
     }
   };
 
