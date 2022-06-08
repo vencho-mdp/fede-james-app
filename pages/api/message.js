@@ -28,7 +28,6 @@ const sendMessages = async () => {
 };
 
 setInterval(() => {
-  console.log(messages);
   if (messages.length > 0) {
     sendMessages();
     messages.length = 0;

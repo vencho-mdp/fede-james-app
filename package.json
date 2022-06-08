@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "git pull && next build && pm2 start npm --name federicojames-website -- start",
+    "deploy": "pm2 stop federicojames-website && git pull && next build && pm2 start npm --name federicojames-website -- start",
     "lint": "next lint",
     "analyze": "cross-env ANALYZE=true next build",
     "analyze:server": "cross-env BUNDLE_ANALYZE=server next build",
