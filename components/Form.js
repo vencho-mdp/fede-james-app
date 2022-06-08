@@ -51,21 +51,6 @@ export default function Form({ className }) {
     );
   }, [name, contactMethod, user, message]);
 
-  const checkThatIsValid = (object) => {
-    if (contactMethod !== "phone") return;
-    // format phone number
-    const arr = object.target.value
-      .replace(/\D/g, "")
-      .match(/(\d{0,3})(\d{0,3})(\d{0,4})/)
-      .slice(1);
-
-    setUser(
-      `${arr[0] ? `(${arr[0]}) ` : ""}${arr[1] ? `${arr[1]}` : ""}${
-        arr[2] ? `-${arr[2]}` : ""
-      }`
-    );
-  };
-
   const sendMessage = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -74,7 +59,7 @@ export default function Form({ className }) {
       params: {
         contactMethod: contactMethod.toLowerCase(),
         name,
-        user: contactMethod !== "email" ? user.replace(/\D/g, "") : user,
+        user,
         message,
       },
     });
@@ -86,7 +71,7 @@ export default function Form({ className }) {
       body: JSON.stringify({
         contactMethod: contactMethod.toLowerCase(),
         name,
-        user: contactMethod !== "email" ? user.replace(/\D/g, "") : user,
+        user: user,
         message,
       }),
     });
@@ -166,7 +151,7 @@ export default function Form({ className }) {
                   Email
                 </label>
               </div>
-              <div className="flex flex-col mt-6">
+              <div className="max-w-md flex flex-col mt-6">
                 <label className="text-gray-200 font-medium">
                   {contactMethod === "phone" ? "Teléfono" : "Email"}
                 </label>
@@ -175,7 +160,6 @@ export default function Form({ className }) {
                   value={user}
                   onChange={(e) => {
                     setUser(e.target.value);
-                    checkThatIsValid(e);
                   }}
                   className="p-1 rounded-md text-gray-200 bg-black border border-gray-200 focus:outline-none"
                 />
@@ -199,7 +183,7 @@ export default function Form({ className }) {
           </p>
         </div>
       )}
-      <div className="flex justify-around items-center w-full mt-12 mb-16">
+      <div className="flex justify-between max-w-md mx-auto px-8 items-center w-full mt-12 mb-16">
         {otherWaysToGetInTouch.map((socialMedia) => (
           <a
             href={socialMedia.link}

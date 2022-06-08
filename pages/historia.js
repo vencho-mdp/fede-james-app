@@ -9,7 +9,7 @@ export default function Historia() {
     <main>
       <Hero title="Historia" img="/images/fede.jpg"></Hero>
       <Paragraph
-        text="<p>Soy un platero con <b> 15 años </b> de experiencia  haciendo <b> piezas de calidad, operativas y estéticas </b>. Desde los trabajos más complejos, hasta los más simples son <b> todos exclusivos </b> y a todos <b> les doy mi mayor dedicación </b>.</p>"
+        text="<p>Soy un platero con más de <b> 20 años </b> de experiencia  haciendo <b> piezas de calidad, operativas y estéticas </b>. Desde los trabajos más complejos, hasta los más simples son <b> todos exclusivos </b> y a todos <b> les doy mi mayor dedicación </b>.</p>"
         className="mx-12 mt-16"
       />
       <Slider
