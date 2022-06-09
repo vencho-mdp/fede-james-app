@@ -41,9 +41,9 @@ export default async function handler(req, res) {
   }
 
   messages.push(`
-  Nombre: ${req.body.name},
+  Nombre: ${req.body.name}
   
-  Mensaje: ${req.body.message},
+  Mensaje: ${req.body.message}
 
   ${req.body.contactMethod === "email " ? "Email" : "Link"} para Contactarlo: ${
     req.body.contactMethod === "email"
