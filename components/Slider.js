@@ -92,8 +92,8 @@ export default function Slider({
                 >
                   <Image
                     src={img.src}
-                    height="170"
-                    width="220"
+                    height={170}
+                    width={220}
                     alt="Imagen"
                     className="!border !border-white first-line:selection:w-full object-cover rounded-md"
                   />
