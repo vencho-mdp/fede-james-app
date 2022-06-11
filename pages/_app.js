@@ -33,7 +33,12 @@ function MyApp({ Component, pageProps }) {
           name="description"
           content="Página oficial del Platero Federico James"
         />
-        <link rel="icon" sizes="64x64" href="/images/logo.png" />
+        <link
+          rel="icon"
+          sizes="32x64"
+          href="/images/logo.ico"
+          type="image/png"
+        />
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
         <meta
           name="og:description"
@@ -59,7 +64,7 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
       <Script
         src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        strategy="afterInteractive"
+        strategy="worker"
       />
       <Script id="google-analytics" strategy="afterInteractive">
         {`

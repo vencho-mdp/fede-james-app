@@ -3,6 +3,7 @@ import PrimaryButton from "./PrimaryButton";
 import { useState, useMemo } from "react";
 import { event } from "../lib/ga.js";
 import Fade from "./Fade";
+import Image from "next/image";
 
 export default function Form({ className }) {
   const otherWaysToGetInTouch = [
@@ -201,10 +202,11 @@ export default function Form({ className }) {
             }
           >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={socialMedia.iconPath}
               alt={socialMedia.name}
-              className="h-8 w-8"
+              width={32}
+              height={32}
             />
           </a>
         ))}

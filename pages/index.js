@@ -10,7 +10,7 @@ export default function Home() {
       <Hero
         subtitle="Federico James"
         title="Arte en la Orfebrería"
-        img="/images/knives/main_knife.jpg"
+        img="/images/knives/main_knife.webp"
       ></Hero>
       <Slider
         imagesPath={[

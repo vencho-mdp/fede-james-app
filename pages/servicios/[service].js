@@ -12,11 +12,11 @@ const data = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     images_path: [
-      "/images/knives/main_knife.jpg",
+      "/images/knives/main_knife.webp",
       "/images/main_knife2.jpg",
       "/images/main_knife3.jpg",
     ],
-    main_image: "/images/knives/main_knife.jpg",
+    main_image: "/images/knives/main_knife.webp",
   },
   {
     text: "restauracion",
@@ -24,11 +24,11 @@ const data = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     images_path: [
-      "/images/knives/main_knife.jpg",
+      "/images/knives/main_knife.webp",
       "/images/main_knife2.jpg",
       "/images/main_knife3.jpg",
     ],
-    main_image: "/images/knives/main_knife.jpg",
+    main_image: "/images/knives/main_knife.webp",
   },
   {
     text: "revitalizacion",
@@ -36,11 +36,11 @@ const data = [
     description:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
     images_path: [
-      "/images/knives/main_knife.jpg",
+      "/images/knives/main_knife.webp",
       "/images/main_knife2.jpg",
       "/images/main_knife3.jpg",
     ],
-    main_image: "/images/knives/main_knife.jpg",
+    main_image: "/images/knives/main_knife.webp",
   },
 ];
 

@@ -33,17 +33,18 @@ export default function Cuchillos({ knives = [] }) {
     fetchItems();
     return () => {
       setItems([]);
+      setShowProductSpecificCard(false);
     };
   }, []);
 
   const imgs = [
     {
-      src: "/images/knives/main_knife.jpg",
+      src: "/images/knives/main_knife.webp",
       label: "Cuchillo Mariposa",
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/knives/main_knife.jpg" },
+        { src: "/images/knives/main_knife.webp" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -54,7 +55,7 @@ export default function Cuchillos({ knives = [] }) {
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/knives/main_knife.jpg" },
+        { src: "/images/knives/main_knife.webp" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -65,7 +66,7 @@ export default function Cuchillos({ knives = [] }) {
       description:
         "Cuchillo de mariposa de acero inoxidable con una lámina de acero inoxidable de alta resistencia.",
       imagesPath: [
-        { src: "/images/knives/main_knife.jpg" },
+        { src: "/images/knives/main_knife.webp" },
         { src: "/images/main_knife2.jpg" },
         { src: "/images/main_knife3.jpg" },
       ],
@@ -82,12 +83,17 @@ export default function Cuchillos({ knives = [] }) {
       <Subtitle text="Últimos Trabajos" className="mt-16 mb-8" />
       <Fade>
         {(loadAll ? items : knives).map((imgSrc) => (
-          <div key={imgSrc} className="py-8 px-16 h-96 w-full">
+          <div
+            key={imgSrc}
+            className="py-8 px-16 h-96 flex items-center justify-center"
+          >
             {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
+            <Image
               src={`data:image/jpeg;base64,${imgSrc}`}
               alt="knife"
-              className="h-full w-full object-cover rounded-md"
+              width={215}
+              height={320}
+              className="mx-auto object-center object-cover rounded-md"
             />
           </div>
         ))}
